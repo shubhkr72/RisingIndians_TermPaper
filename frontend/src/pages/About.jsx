@@ -61,7 +61,7 @@ const TEAM = [
   { name: "Dev Joshi",      role: "Data Collection & EDA"    },
   { name: "Meera Nair",     role: "Model Evaluation"         },
   { name: "Arjun Gupta",    role: "SVM & Baseline Models"    },
-  { name: "Tanya Bose",     role: "Documentation & Testing"  },
+  { name: "Ritesh Kumar",     role: "Documentation & Testing"  },
 ];
 
 const MENTOR = {
