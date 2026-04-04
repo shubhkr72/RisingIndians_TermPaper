@@ -57,7 +57,7 @@ const TEAM = [
   { name: "Rohan Mehta",    role: "Deep Learning (BiLSTM)"   },
   { name: "Sneha Iyer",     role: "BERT Fine-Tuning"         },
   { name: "Karan Verma",    role: "Backend & Flask API"      },
-  { name: "Ananya Singh",   role: "Frontend Developer"       },
+  { name: "Smignita Roy",   role: "Student Contributor"       },
   { name: "Dev Joshi",      role: "Data Collection & EDA"    },
   { name: "Meera Nair",     role: "Model Evaluation"         },
   { name: "Arjun Gupta",    role: "SVM & Baseline Models"    },
