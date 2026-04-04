@@ -59,9 +59,9 @@ const TEAM = [
   { name: "Karan Verma",    role: "Backend & Flask API"      },
   { name: "Ananya Singh",   role: "Frontend Developer"       },
   { name: "Dev Joshi",      role: "Data Collection & EDA"    },
-  { name: "Meera Nair",     role: "Model Evaluation"         },
+  { name: "Chanchlesh Bhalavi",     role: "Model Evaluation"         },
   { name: "Arjun Gupta",    role: "SVM & Baseline Models"    },
-  { name: "Tanya Bose",     role: "Documentation & Testing"  },
+  { name: "Mohit Tiwari",     role: "Documentation & Testing"  },
   { name: "Aadarsh Munna",     role: "Data Collection & Testing"  },
 
 ];
