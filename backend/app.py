@@ -1,27 +1,29 @@
 from __future__ import annotations
 import os
-
 import time
-
 from flask import Flask, jsonify, request
 from flask_cors import CORS
-
 from predictor import ModelPredictor
 
 app = Flask(__name__)
-CORS(app)  # allow all origins
-predictor = ModelPredictor("models")
+CORS(app)
 
+_predictor = None  # don't load at import time
+
+def get_predictor():
+    global _predictor
+    if _predictor is None:
+        _predictor = ModelPredictor("models")
+    return _predictor
 
 @app.get("/health")
 def health():
     return jsonify(
         {
             "status": "ok",
-            "available_models": predictor.available_models(),
+            "available_models": get_predictor().available_models(),
         }
     )
-
 
 @app.post("/api/v1/predict")
 def predict_endpoint():
@@ -35,7 +37,7 @@ def predict_endpoint():
         return jsonify({"status": "error", "message": "Request JSON must include 'text'."}), 400
 
     try:
-        prediction = predictor.predict(text=text, title=title, model_name=model_name)
+        prediction = get_predictor().predict(text=text, title=title, model_name=model_name)
     except Exception as exc:
         return jsonify({"status": "error", "message": str(exc)}), 400
 
@@ -47,7 +49,6 @@ def predict_endpoint():
             "processing_time_ms": elapsed_ms,
         }
     )
-
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
