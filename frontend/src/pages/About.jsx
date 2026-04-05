@@ -54,7 +54,7 @@ const PIPELINE_STEPS = [
 const TEAM = [
   { name: "Shubham Kumar",   role: "Team Lead & ML Engineer & Full Stack Web Developer"  },
   { name: "Manish Kumar",    role: "Full Stack Web Developer" },
-  { name: "Prashant Kumar Singh",    role: "Developer"   },
+  { name: "Prashant Kumar Singh",    role: "Model Evaluation & Documentation"   },
   { name: "Ritesh Kumar",     role: "Developer"         },
   { name: "Mohit Tiwari",    role: "Developer"      },
   { name: "Akshat Dubey",   role: "Developer"       },
