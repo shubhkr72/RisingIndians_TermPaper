@@ -3,10 +3,12 @@ from __future__ import annotations
 import time
 
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 
 from predictor import ModelPredictor
 
 app = Flask(__name__)
+CORS(app)  # allow all origins
 predictor = ModelPredictor("models")
 
 
@@ -47,4 +49,5 @@ def predict_endpoint():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port)

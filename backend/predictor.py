@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import pickle
-import os
 from pathlib import Path
 from typing import Dict, List
 
@@ -10,6 +9,13 @@ import numpy as np
 from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score
 
 from src.preprocess import clean_text
+
+_HYBRID_CANDIDATES = (
+    "naive_bayes",
+    "svm",
+    "logistic_regression",
+    "bilstm_cnn",
+)
 
 MAX_LEN = 300
 
@@ -22,7 +28,6 @@ class ModelPredictor:
         self.baselines: Dict[str, object] = {}
         self.bilstm_cnn = None
         self.pad_sequences = None
-        self.has_bert = False
         self._load_artifacts()
 
     def _load_artifacts(self):
@@ -35,30 +40,27 @@ class ModelPredictor:
                     self.baselines[name] = joblib.load(model_path)
 
         tokenizer_path = self.models_dir / "tokenizer.pkl"
-        bilstm_path = self.models_dir / "bilstm_cnn.h5"
-        enable_dl_model = os.getenv("ENABLE_DL_MODEL", "0") == "1"
-        if enable_dl_model and tokenizer_path.exists() and bilstm_path.exists():
+        bilstm_path = self.models_dir / "bilstm_cnn.keras"
+        if not bilstm_path.exists():
+            bilstm_path = self.models_dir / "bilstm_cnn.h5"
+        if tokenizer_path.exists() and bilstm_path.exists():
             try:
                 from tensorflow.keras.models import load_model
                 from tensorflow.keras.preprocessing.sequence import pad_sequences
 
                 with open(tokenizer_path, "rb") as f:
                     self.tokenizer = pickle.load(f)
-                self.bilstm_cnn = load_model(bilstm_path)
+                self.bilstm_cnn = load_model(bilstm_path, compile=False)
                 self.pad_sequences = pad_sequences
             except Exception:
                 self.bilstm_cnn = None
                 self.tokenizer = None
                 self.pad_sequences = None
 
-        self.has_bert = (self.models_dir / "bert").exists()
-
     def available_models(self) -> List[str]:
         names = list(self.baselines.keys())
         if self.bilstm_cnn is not None:
             names.append("bilstm_cnn")
-        if self.has_bert:
-            names.append("bert")
         if names:
             names.append("hybrid")
         return names
@@ -94,16 +96,9 @@ class ModelPredictor:
             x = self.pad_sequences(seq, maxlen=MAX_LEN)
             return float(self.bilstm_cnn.predict(x, verbose=0)[0][0])
 
-        if model_name == "bert":
-            if not self.has_bert:
-                raise ValueError("BERT artifacts not found.")
-            from src.models.bert_model import predict_bert_proba
-
-            return float(predict_bert_proba([clean_input_text], str(self.models_dir / "bert"))[0])
-
         if model_name == "hybrid":
             candidates = []
-            for candidate in ["logistic_regression", "bilstm_cnn", "bert"]:
+            for candidate in _HYBRID_CANDIDATES:
                 try:
                     candidates.append(self._predict_proba_single(clean_input_text, candidate))
                 except Exception:

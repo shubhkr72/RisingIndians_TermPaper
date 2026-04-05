@@ -231,6 +231,12 @@
   max-width: 700px;
   width: 100%;
 }
+.mentor-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;   /* makes it circular */
+  object-fit: cover;    /* prevents stretching */
+}
 
 /* ── RESPONSIVE ── */
 @media (max-width: 700px) {

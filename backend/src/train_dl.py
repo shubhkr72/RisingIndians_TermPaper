@@ -15,7 +15,7 @@ MAX_LEN = 300
 VOCAB_SIZE = 30000
 
 
-def train_deep_model(raw_dir: str = "data/raw", out_dir: str = "models", epochs: int = 10):
+def train_deep_model(raw_dir: str = "data/raw", out_dir: str = "models", epochs: int = 4):
     out_path = Path(out_dir)
     out_path.mkdir(parents=True, exist_ok=True)
 
@@ -44,20 +44,21 @@ def train_deep_model(raw_dir: str = "data/raw", out_dir: str = "models", epochs:
         metrics=["accuracy"],
     )
 
-    stop = EarlyStopping(monitor="val_loss", patience=3, restore_best_weights=True)
+    stop = EarlyStopping(monitor="val_loss", patience=2, restore_best_weights=True)
     model.fit(
         x_train,
         y_train,
         validation_data=(x_val, y_val),
         epochs=epochs,
-        batch_size=32,
+        batch_size=128,
         callbacks=[stop],
         verbose=1,
     )
     loss, acc = model.evaluate(x_test, y_test, verbose=0)
     print(f"BiLSTM+CNN test accuracy: {acc:.4f}, loss: {loss:.4f}")
 
-    model.save(out_path / "bilstm_cnn.h5")
+    keras_path = out_path / "bilstm_cnn.keras"
+    model.save(keras_path)
     with open(out_path / "tokenizer.pkl", "wb") as f:
         pickle.dump(tokenizer, f)
     print(f"Saved deep model artifacts to {out_path.resolve()}")
