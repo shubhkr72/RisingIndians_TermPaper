@@ -184,7 +184,7 @@ export default function About() {
           <div className="mentor-card">
             <div className="mentor-left">
               <img 
-                src="/public/images/mentor.jpeg"   // path to your image
+                src="/images/mentor.jpeg"   // path to your image
                 alt={MENTOR.name}
                 className="mentor-avatar"
               />
