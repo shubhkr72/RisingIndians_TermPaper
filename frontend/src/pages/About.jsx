@@ -52,24 +52,23 @@ const PIPELINE_STEPS = [
 ];
 
 const TEAM = [
-  { name: "Aarav Sharma",   role: "Team Lead & ML Engineer"  },
-  { name: "Priya Patel",    role: "NLP & Preprocessing"      },
-  { name: "Rohan Mehta",    role: "Deep Learning (BiLSTM)"   },
-  { name: "Sneha Iyer",     role: "BERT Fine-Tuning"         },
-  { name: "Karan Verma",    role: "Backend & Flask API"      },
-  { name: "Ananya Singh",   role: "Frontend Developer"       },
-  { name: "Dev Joshi",      role: "Data Collection & EDA"    },
-  { name: "Meera Nair",     role: "Model Evaluation"         },
-  { name: "Arjun Gupta",    role: "SVM & Baseline Models"    },
-  { name: "Tanya Bose",     role: "Documentation & Testing"  },
+  { name: "Shubham Kumar",   role: "Team Lead & ML Engineer & Full Stack Web Developer"  },
+  { name: "Manish Kumar",    role: "Full Stack Web Developer" },
+  { name: "Prashant Kumar Singh",    role: "Developer"   },
+  { name: "Ritesh Kumar",     role: "Developer"         },
+  { name: "Mohit Tiwari",    role: "Developer"      },
+  { name: "Akshat Dubey",   role: "Developer"       },
+  { name: "Chanchlesh",      role: "Developer"    },
+  { name: "Anjali Kushwaha",     role: "Developer" },
+  { name: "Smignita Roy",    role: "Developer"    },
   { name: "Aadarsh Munna",     role: "Data Collection & Testing"  },
 
 ];
 
 const MENTOR = {
-  name:  "Dr. Rajesh Kumar",
-  title: "Associate Professor\nDept. of Computer Science & Engineering",
-  bio:   "Dr. Kumar specializes in Natural Language Processing and Machine Learning. He has guided numerous research projects in misinformation detection and computational linguistics. His mentorship was invaluable throughout this project.",
+  name:  "Dr. Suman Deb",
+  title: "Assistant Professor\nDept. of Computer Science & Engineering\nNational Institute of Technology,Agartala",
+  bio:   "whose research focuses on Human-Computer Interaction and Educational Technologies, with a strong emphasis on innovative, interactive learning methods. He leads the HCI and AI Lab, develops low-cost technological solutions, and actively works on transforming traditional classrooms while mentoring motivated students in cutting-edge research.",
 };
 
 /* ── HELPER ── */
@@ -150,7 +149,7 @@ export default function About() {
         </div>
         <h2 className="section-title">Meet Our Team</h2>
         <p className="section-subtitle">
-          A group of {TEAM.length} passionate students who built this project
+          A group of passionate students who built this project
           from scratch.
         </p>
 
@@ -160,13 +159,12 @@ export default function About() {
               <div className="team-avatar-placeholder">
                 {getInitials(member.name)}
               </div>
-              <div className="team-number">Member {String(index + 1).padStart(2, "0")}</div>
               <div className="team-name">{member.name}</div>
               <div className="team-role">{member.role}</div>
-              <div className="team-socials">
+              {/* <div className="team-socials">
                 <a href="#" className="social-link" target="_blank" rel="noreferrer">GH</a>
                 <a href="#" className="social-link" target="_blank" rel="noreferrer">in</a>
-              </div>
+              </div> */}
             </div>
           ))}
         </div>
@@ -185,10 +183,11 @@ export default function About() {
         <div className="mentor-wrapper">
           <div className="mentor-card">
             <div className="mentor-left">
-              <div className="mentor-avatar-placeholder">
-                {getInitials(MENTOR.name)}
-              </div>
-              <span className="mentor-badge">⭐ Project Mentor</span>
+              <img 
+                src="/public/images/mentor.jpeg"   // path to your image
+                alt={MENTOR.name}
+                className="mentor-avatar"
+              />
             </div>
 
             <div className="mentor-right">
@@ -196,10 +195,10 @@ export default function About() {
               <div className="mentor-title">{MENTOR.title}</div>
               <hr className="mentor-divider" />
               <p className="mentor-bio">{MENTOR.bio}</p>
-              <div className="team-socials">
+              {/* <div className="team-socials">
                 <a href="#" className="social-link" target="_blank" rel="noreferrer">in</a>
                 <a href="#" className="social-link" target="_blank" rel="noreferrer">GH</a>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
